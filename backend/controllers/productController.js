@@ -1,4 +1,5 @@
 const Product=require("../models/productModels")
+const mongoose = require("mongoose")
 
 // Create Product 
 exports.createProduct=async(req,res)=>{
@@ -16,8 +17,8 @@ exports.getAllProducts=async(req,res)=>{
 
 //get product details
 exports.getProductDetails=async(req,res,next)=>{
-    let product=await Product.findById(req.params.id)
-    console.log(product)
+        let product = await Product.find({ _id: new mongoose.Types.ObjectId(req.params.id) })
+  
     if(!product){
         return res.status(500).json({
             success:false,
